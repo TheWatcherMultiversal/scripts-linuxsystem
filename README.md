@@ -10,7 +10,8 @@ To install the scripts and use them, you'll need to first clone the repository w
 Then navigate to the directory and execute the script `./install.sh` within it.
 
     cd ./scripts-linuxsystem
-    source ./install.sh
+    chmod 755 ./install.sh
+    ./install.sh
 
 Once the installation script is executed, you'll be able to use the scripts included in this repository.
 
