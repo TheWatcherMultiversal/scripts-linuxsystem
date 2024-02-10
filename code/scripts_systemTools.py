@@ -136,7 +136,7 @@ class auditSystem(object):
             for line in process.stdout: stdout += line; print(line, end='')
             process.wait()
 
-            # --> Save audit output to a file" o "Store the audit results in a file:
+            # --> Save audit output to a file:
             opt = input_confirm('Do you want to store the information in a file?', self.confirm_yes)
             if opt:
                 date = datetime.now()
