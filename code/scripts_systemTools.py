@@ -13,7 +13,7 @@
 
 import sys, argparse, subprocess, os
 from scripts_systemUtils import (print_error, print_notice, print_info, print_list, print_save,
-    packages_managers, command_packagesManagers, input_confirm, audit_tools, types_audits)
+    packages_managers, command_packagesManagers, input_confirm, audit_tools, types_audits, yellow, reset_color)
 from datetime import datetime
 from time import sleep
 
@@ -124,7 +124,6 @@ class auditSystem(object):
         print_notice('End process...'); sleep(2)
 
 
-
     # Perform the audit using the utility:
     def audit_withTool(self, type_audit, sudo=''):
         opt = input_confirm(f'Do you want to perform a system audit with {type_audit}?', self.confirm_yes)
@@ -143,3 +142,61 @@ class auditSystem(object):
                 save_audit = f'{self.home_directory}/.scripts-linuxsystem/audits/audit_{type_audit}_{date.date()}_{date.hour}-{date.minute}-{date.second}.txt'
                 with open(save_audit, 'w') as file: file.write(stdout)
                 subprocess.run(f'gzip {save_audit}', shell=True, check=True); print_save(save_audit)
+
+
+class videoDownload(object):
+
+
+    # Class initial configuration:
+    def __init__(self, link_video:str):
+
+        # -> Checking if the commands exist:
+        self.youtube_dlExist = os.system('type youtube-dl > /dev/null') == 0
+        self.ffmpegExist     = os.system('type ffmpeg > /dev/null')     == 0
+
+        # -> Link video:
+        self.link_video      = link_video
+
+    
+    # Download video:
+    def down_video(self):
+
+        # -> Check command exist:
+        if not (self.youtube_dlExist and self.ffmpegExist): print('youtube-dl or ffmpeg command not found'); return
+
+        print_notice('Downloading video from the link...')
+
+        # -> Try download video:
+        try:
+            # --> Save the formats and the format codes:
+            formats = subprocess.run(f'youtube-dl -F {self.link_video} | grep -A 1000 code', shell=True, check=True, stdout=subprocess.PIPE, text=True)
+            formats = formats.stdout.split('\n'); code_formats = [i.split()[0] for i in formats[1:-1]]
+
+            # --> Print the output interactively:
+            print(yellow + f'{" " * 5}{formats[0]}' + reset_color)
+            for i, item in enumerate(formats[1:-1]): print_list(f'{i + 1:>2}', item)
+
+            # --> Download the video with the selected index:
+            opt = int(input('\nSelect an option: ')) - 1
+            subprocess.run(f'youtube-dl -f {code_formats[opt]} {self.link_video}', shell=True, check=True)
+            
+            print_notice('End process...'); sleep(2)
+
+        except subprocess.CalledProcessError : print_error('Error executing youtube-dl, please verify the link to the video')
+        except ValueError                    : print_error('The entered value is not valid')
+        except IndexError                    : print_error('The entered value is not within the range of formats')
+    
+
+    # Download audio:
+    def down_audio(self):
+
+        # -> Check command exist:
+        if not (self.youtube_dlExist and self.ffmpegExist): print('youtube-dl or ffmpeg command not found'); return
+
+        print_notice('Downloading audio from the link...')
+
+        # -> Try download audio:
+        try:
+            subprocess.run(f'youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 {self.link_video}', shell=True, check=True)
+
+        except subprocess.CalledProcessError : print_error('Error executing youtube-dl, please verify the link to the video')

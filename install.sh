@@ -28,6 +28,7 @@ case "$1" in
 	rm -vf "$PATH_LOCAL_BIN/scripts_systemUtils.py"
 	rm -vf "$PATH_LOCAL_BIN/scripts-manage"
 	rm -vf "$PATH_LOCAL_BIN/update-packages"
+	rm -vf "$PATH_LOCAL_BIN/down-video"
 
 	echo -e "\n\e[32mEnd process...\e[0m\n"
 	;;
@@ -52,6 +53,7 @@ options:
 	mv -vf "$PATH_LOCAL_BIN/audit-system.py"    "$PATH_LOCAL_BIN/audit-system"
 	mv -vf "$PATH_LOCAL_BIN/update-packages.py" "$PATH_LOCAL_BIN/update-packages"
 	mv -vf "$PATH_LOCAL_BIN/scripts-manage.py"  "$PATH_LOCAL_BIN/scripts-manage"
+	mv -vf "$PATH_LOCAL_BIN/down-video.py"      "$PATH_LOCAL_BIN/down-video"
 
 	echo -e "\n\e[32mEnd process...\e[0m\n"
 esac

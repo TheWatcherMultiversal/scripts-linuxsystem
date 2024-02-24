@@ -20,7 +20,7 @@ import sys
 #   |
 #   °-- Code:
 
-version = 'v1.0.0'   # -> Version app
+version = 'v1.1.0'   # -> Version app
 stderr  = sys.stderr # -> stderr
 stdout  = sys.stdout # -> stdout
 
@@ -54,11 +54,11 @@ types_audits = {
 }
 
 # Information messages
-def print_notice(message, end=None)    : print(green + f'\n{message}\n' + reset_color,    file=stdout, end=end)
-def print_info(message, end=None, )    : print(yellow + 'Info: ' + reset_color + message, file=stdout, end=end) 
-def print_error(message, end=None)     : print(red + 'Error: ' + reset_color + message,   file=stderr, end=end); sys.exit(1)
-def print_list(indice, item, end=None) : print(green + f'[{reset_color + str(indice) + green}] ' + reset_color + item, end=end)
-def print_save(file, end=None)         : print(green + '\nSave file: ' + cyan + file + '\n' + reset_color, file=stdout, end=end)
+def print_notice(message, end=None)      : print(green + f'\n{message}\n' + reset_color,    file=stdout, end=end)
+def print_info  (message, end=None, )    : print(yellow + 'Info: ' + reset_color + message, file=stdout, end=end) 
+def print_error (message, end=None)      : print(red + 'ERROR: ' + reset_color + message,   file=stderr, end=end); sys.exit(1)
+def print_list  (indice, item, end=None) : print(green + f'[{reset_color + str(indice) + green}] ' + reset_color + item, end=end)
+def print_save  (file, end=None)         : print(green + '\nSave file: ' + cyan + file + '\n' + reset_color, file=stdout, end=end)
 
 def input_confirm(message, confirm=False): 
     if confirm: return confirm

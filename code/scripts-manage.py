@@ -11,7 +11,7 @@
 #
 # ----------------------------------------------------------------------------------------------------------------
 
-from scripts_systemTools import (auditSystem, updatePackages, subprocess, sys, os, sleep)
+from scripts_systemTools import (auditSystem, updatePackages, videoDownload, subprocess, sys, os, sleep)
 from scripts_systemUtils import (version, reset_color, print_list, print_info, print_error, green, cyan, red, yellow)
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -110,6 +110,31 @@ def update_option():
     update = updatePackages(arg_y=False)
     if ID_CURRENT_USER != 0: update.update_system('sudo')
     else: update.update_system()
+
+# Download youtube video:
+def down_video_option():
+    while True:
+        print_app()
+        opt = print_options(['download video', 'download audio', 'return'])
+
+        # --> audit system using available tools:
+        if opt == '1': 
+            try:
+                subprocess.run('clear', shell=True)
+                source_video = input('\nLink video: ')
+                videoDownload(source_video).down_video()
+            except KeyboardInterrupt: pass
+
+        # --> view logs:
+        elif opt == '2' : 
+            try:
+                subprocess.run('clear', shell=True)
+                source_video = input('\nLink video: ')
+                videoDownload(source_video).down_audio()
+            except KeyboardInterrupt: pass
+
+        # --> return:
+        elif opt == '3' : break
     
 # ----------------------------------------------------------------------------------------------------------------
 #   |
@@ -122,12 +147,13 @@ if __name__ == "__main__":
         HOME_CURRENT_USER = str(subprocess.run('echo $HOME', shell=True, capture_output=True, text=True).stdout).replace("\n", "")
         while True:
             print_app()
-            opt = print_options(['audit system', 'update system', 'exit'])
+            opt = print_options(['audit system', 'update system', 'download video/audio', 'exit'])
 
             if   opt == '1' : audit_option()
             elif opt == '2' : 
                 try: update_option()
                 except KeyboardInterrupt: pass
-            elif opt == '3' : sys.exit()
+            elif opt == '3' : down_video_option()
+            elif opt == '4' : sys.exit()
     except KeyboardInterrupt: os.system('clear'); sys.exit(1)
     except Exception as e: print_error(f'The code could not be executed, error found: {e}')

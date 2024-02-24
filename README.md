@@ -10,8 +10,7 @@ To install the scripts and use them, you'll need to first clone the repository w
 Then navigate to the directory and execute the script `./install.sh` within it.
 
     cd ./scripts-linuxsystem
-    chmod 755 ./install.sh
-    ./install.sh
+    source ./install.sh
 
 Once the installation script is executed, you'll be able to use the scripts included in this repository.
 
@@ -25,5 +24,6 @@ Once the installation script is executed, you'll be able to use the scripts incl
 |`scripts-manage`|Manages all the scripts in a friendlier way and allows for saving logs|
 |`update-packages`|Updates the system packages using the existing package managers|
 |`audit-system`|Conducts an audit on the system using the existing tools on the system|
+|`down-video`|Download a video or audio from a YouTube link|
 
 > Use `--help` in the scripts to see all available options.
