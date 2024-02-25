@@ -117,7 +117,7 @@ def down_video_option():
         print_app()
         opt = print_options(['download video', 'download audio', 'return'])
 
-        # --> audit system using available tools:
+        # --> download video:
         if opt == '1': 
             try:
                 subprocess.run('clear', shell=True)
@@ -125,7 +125,7 @@ def down_video_option():
                 videoDownload(source_video).down_video()
             except KeyboardInterrupt: pass
 
-        # --> view logs:
+        # --> download audio:
         elif opt == '2' : 
             try:
                 subprocess.run('clear', shell=True)

@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 #
-# scripts_linuxsystem - down-audio
+# scripts_linuxsystem - down-video
 # 
 # Command to download a video or audio from YouTube
 # using youtube-dl and ffmpeg
